@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff; /* white */
+            color: #000000; /* black */
+        }
+        nav {
+            background-color: #ff4500; /* orange */
+            padding: 10px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+        body {
+            padding-top: 70px; /* Adjust based on nav height */
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        .logo a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: inherit;
+        }
+        .logo img {
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+        .logo h1 {
+            color: #ffffff; /* white */
+            margin: 0;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+        nav ul li {
+            margin-left: 10px;
+        }
+        nav ul li a {
+            color: #ffffff; /* white */
+            text-decoration: none;
+            padding: 10px;
+            transition: background-color 0.3s;
+        }
+        nav ul li a:hover {
+            background-color: #dc143c; /* red */
+        }
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+        section {
+            padding: 50px 20px;
+            min-height: 100vh;
+        }
+        #about {
+            background-color: #f0f0f0; /* light gray for contrast */
+            text-align: center;
+        }
+        #about p {
+            text-align: center;
+            margin: 20px auto 0 auto;
+            max-width: 600px;
+        }
+        #products {
+            background-color: #ffffff;
+            text-align: center;
+        }
+        #contact {
+            background-color: #f0f0f0;
+        }
+        h2 {
+            color: #ff4500; /* orange */
+        }
+
+        #hero {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            background-color: #ffffff;
+        }
+        #hero h1 {
+            color: #ff4500; /* orange */
+            font-size: 2.5em;
+            margin: 0;
+        }
+        #hero p {
+            font-size: 1.2em;
+            margin: 20px 0 0 0;
+            max-width: 600px;
+        }
+        #hero img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+        }
+
+        .image-list {
+            display: flex;
+            overflow-x: auto;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .image-item {
+            text-align: center;
+            flex: 0 0 500px;
+            margin: 0 10px;
+        }
+        .image-item img {
+            width: 500px;
+            height: 500px;
+            border-radius: 10px;
+            border: 0.03in solid black;
+        }
+        .image-item p {
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        .carousel {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin: 0 auto;
+        }
+        .carousel-item {
+            flex: 0 0 25%;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .carousel-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .carousel-item p {
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.9);
+        }
+
+        .modal-content {
+            margin: auto;
+            width: 80%;
+            max-width: 700px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+        }
+        .modal.show .modal-content {
+            transform: scale(1);
+        }
+        .modal-content img {
+            flex: 1;
+            max-width: 50%;
+            height: auto;
+            margin-right: 20px;
+        }
+        .modal-content #modal-description {
+            flex: 1;
+            color: white;
+            font-size: 1.2em;
+            text-align: left;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #ff4500;
+                margin: 0;
+                padding: 0;
+            }
+            nav ul.show {
+                display: flex;
+            }
+            nav ul li {
+                margin: 0;
+                text-align: center;
+            }
+            nav ul li a {
+              display: block;
+                padding: 15px;
+            }
+            section {
+                padding: 30px 10px;
+            }
+            #hero h1 {
+                font-size: 2em;
+            }
+            #hero p {
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 1600px) {
+            .image-list {
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">
+            <a href="#hero">
+                <img src="logotrans.png" alt="Logo"> <!-- Replace with your logo path -->
+                <h1>Paul Joshua Aranillo</h1> <!-- Replace with your name -->
+            </a>
+        </div>
+        <ul>
+            <li><a href="#about">About</a></li>
+            <li><a href="#products">Products</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="menu-toggle">☰</button>
+    </nav>
+
+    <section id="hero">
+        <h1>Welcome to My Portfolio</h1>
+        <img src="1x1.jpg" alt="Placeholder image"> 
+        <p>Hi, I'm Paul Joshua, an IT Professional passionate about building projects and leading with purpose. Let's build something amazing together!</p>
+    </section>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <p >I specialize in creating practical tech solutions—whether it’s IoT systems, hardware prototypes, or web applications. With a strong foundation in both hardware and software, I turn ideas into working products through innovation and hands-on engineering. Passionate about the IT world, I’m committed to developing technology that delivers real impact and long-term value.</p>
+        <div class="image-list">
+            <div class="image-item">
+                <img src="hardware.jpg" alt="Placeholder 1">
+                <p>Lorem ipsum dolor sit amet.</p>
+            </div>
+            <div class="image-item">
+                <img src="web.jpg" alt="Placeholder 2">
+                <p>Consectetur adipiscing elit.</p>
+            </div>
+            <div class="image-item">
+                <img src="schem.jpg" alt="Placeholder 3">
+                <p>Sed do eiusmod tempor incididunt.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="products">
+        <h2>Skills & Certifications</h2>
+        <p>These are the skills and things I can do, including my certifications.</p>
+        <div class="carousel">
+            <div class="carousel-item" data-index="0">
+                <img src="skil11.png" alt="Image 1">
+                <p>JavaScript</p>
+            </div>
+            <div class="carousel-item" data-index="1">
+                <img src="skill22.png" alt="Image 2">
+                <p>HTML</p>
+            </div>
+            <div class="carousel-item" data-index="2">
+                <img src="skill33.png" alt="Image 3">
+                <p>Cascading Style Sheet</p>
+            </div>
+            <div class="carousel-item" data-index="3">
+                <img src="skill4.png" alt="Image 4">
+                <p>C++</p>
+            </div>
+        </div>
+
+        <div id="modal" class="modal">
+            <span class="close">&times;</span>
+            <div class="modal-content">
+                <img id="modal-img">
+                <div id="modal-description"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact</h2>
+        <p>Provide your contact information or a form.</p>
+    </section>
+
+    <script>
+        const modal = document.getElementById('modal');
+        const modalImg = document.getElementById('modal-img');
+        const modalDesc = document.getElementById('modal-description');
+        const closeBtn = document.getElementsByClassName('close')[0];
+        const carouselItems = document.querySelectorAll('.carousel-item');
+
+        carouselItems.forEach(item => {
+            item.addEventListener('click', function() {
+                modal.style.display = 'block';
+                modalImg.src = this.querySelector('img').src;
+                modalDesc.textContent = this.querySelector('p').textContent;
+                setTimeout(() => modal.classList.add('show'), 10);
+            });
+        });
+
+        closeBtn.onclick = function() {
+            modal.classList.remove('show');
+            setTimeout(() => modal.style.display = 'none', 300);
+        }
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.classList.remove('show');
+                setTimeout(() => modal.style.display = 'none', 300);
+            }
+        }
+
+        // Nav bar hide/show on scroll
+        let lastScrollTop = 0;
+        const nav = document.querySelector('nav');
+
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop) {
+                // Scrolling down
+                nav.style.transform = 'translateY(-100%)';
+            } else {
+                // Scrolling up
+                nav.style.transform = 'translateY(0)';
+            }
+            lastScrollTop = scrollTop;
+        });
+    </script>
+
+</body>
+</html>

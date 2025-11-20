@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Paul Joshua Aranillo</title>
+
+  <style>
+    :root{
+      --white:#ffffff; --black:#111;
+      --accent:#ff4500; --accent-2:#dc143c;
+      --muted:#f7f7f7; --nav-h:70px;
+      --card-radius:12px;
+      --shadow: 0 8px 30px rgba(16,16,16,0.06);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:Inter, Arial, Helvetica, sans-serif;
+      margin:0; padding-top:calc(var(--nav-h) + 8px);
+      color:var(--black); background:var(--white);
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* NAV */
+    nav{
+      position:fixed; top:0; left:0; right:0; height:var(--nav-h);
+      display:flex; align-items:center; justify-content:space-between;
+      gap:18px; padding:10px 18px;
+      background: linear-gradient(90deg, var(--accent), #F4231F);
+      box-shadow: var(--shadow); z-index:1200; transition: transform .25s ease;
+    }
+    .logo{display:flex;align-items:center;gap:12px}
+    .logo img{width:44px;height:44px;border-radius:8px;object-fit:cover}
+    .logo h1{margin:0;color:#fff;font-size:1rem;letter-spacing:.2px}
+    #navList{display:flex;gap:10px;list-style:none;margin:0;padding:0;align-items:center}
+    #navList a{color:#fff;text-decoration:none;padding:10px 12px;border-radius:8px;font-weight:600}
+    #navList a:hover{background: rgba(255,255,255,0.08);transform:translateY(-2px)}
+    .menu-toggle{display:none;background:none;border:0;color:#fff;font-size:1.35rem;cursor:pointer}
+
+    .nav-actions{display:flex;align-items:center;gap:8px}
+    .btn{background:rgba(255,255,255,0.12);color:#fff;padding:8px 12px;border-radius:999px;border:0;font-weight:600;cursor:pointer}
+    .btn.secondary{background:rgba(255,255,255,0.06);font-weight:500}
+
+    /* SECTIONS */
+    section{padding:56px 20px;min-height:60vh}
+    h2{color:var(--accent);margin:0 0 12px 0}
+
+    /* HERO */
+    #hero{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:calc(100vh - var(--nav-h));padding:48px 18px;background:transparent}
+    #hero h1{color:var(--accent);font-size:clamp(1.6rem,3.2vw,3rem);margin:0 0 10px}
+    #hero .sub{font-size:1.05rem;max-width:760px;margin:12px auto 0;line-height:1.45;color:rgba(0,0,0,0.85)}
+    #hero .hero-row{display:flex;gap:22px;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:18px}
+    #hero img{width:260px;height:260px;border-radius:50%;object-fit:cover;border:6px solid rgba(0,0,0,0.04);box-shadow:var(--shadow);transition:transform .25s}
+    #hero img:hover{transform:translateY(-6px)}
+    .typing { font-weight:700; color: #111; font-size:1.05rem; display:inline-block; }
+    .cursor{display:inline-block;width:2px;height:1.05em;background:var(--black);margin-left:8px;animation:blink 1s steps(2) infinite}
+    @keyframes blink{50%{opacity:0}}
+
+    /* ABOUT */
+    #about{background:var(--muted);text-align:center;border-top:1px solid rgba(0,0,0,0.03)}
+    #about p{max-width:760px;margin:14px auto 0;color:rgba(0,0,0,0.88)}
+    .image-list{display:flex;overflow-x:auto;gap:12px;justify-content:center;padding:12px 6px;margin-top:18px}
+    .image-item{flex:0 0 300px;background:var(--white);padding:10px;border-radius:12px;box-shadow:var(--shadow);text-align:center}
+    .image-item img{width:100%;height:180px;object-fit:cover;border-radius:8px}
+
+    /* PRODUCTS / SKILLS */
+    #products{background:transparent;text-align:center}
+    .carousel{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:18px}
+    .carousel-item{flex:0 0 220px;background:var(--white);padding:12px;border-radius:12px;box-shadow:var(--shadow);cursor:pointer;transition:transform .18s}
+    .carousel-item:hover{transform:translateY(-6px)}
+    .carousel-item img{width:100%;height:140px;object-fit:cover;border-radius:8px}
+    .modal{display:none;position:fixed;left:0;top:0;width:100%;height:100%;background:rgba(0,0,0,0.78);padding-top:70px;z-index:1350}
+    .modal.show{display:block}
+    .modal-content{width:90%;max-width:900px;margin:20px auto;background:transparent;display:flex;gap:20px;align-items:center}
+    .modal-content img{flex:1;max-width:48%;height:auto;border-radius:8px;box-shadow:var(--shadow)}
+    #modal-description{flex:1;color:#fff;font-size:1.05rem}
+
+    /* skill bars */
+    .skill-wrap{max-width:900px;margin:22px auto;text-align:left}
+    .skill{margin-bottom:14px}
+    .skill .label{display:flex;justify-content:space-between;margin-bottom:6px;font-weight:700}
+    .skill .bar{background:rgba(0,0,0,0.06);height:12px;border-radius:999px;overflow:hidden}
+    .skill .bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));border-radius:999px;transition:width 1.2s cubic-bezier(.2,.9,.2,1)}
+
+    /* CONTACT */
+    #contact{background:var(--muted); text-align: center;}
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:1000px;margin:18px auto;align-items:start}
+    .contact-card{background:var(--white);padding:18px;border-radius:12px;box-shadow:var(--shadow)}
+    input,textarea{width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(0,0,0,0.06);margin-top:8px;background:transparent}
+    textarea{min-height:120px;resize:vertical}
+    #contact .btn{background:var(--accent);color:#fff;padding:8px 12px;border-radius:999px;border:0;font-weight:600;cursor:pointer}
+    #contact .btn.secondary{background:var(--accent-2);color:#fff;font-weight:500}
+
+    /* FOOTER */
+    footer{padding:28px 20px;text-align:center;border-top:1px solid rgba(0,0,0,0.04);color:rgba(0,0,0,0.7)}
+    .socials{display:flex;justify-content:center;gap:12px;margin-top:10px}
+    .icon-btn{display:inline-flex;width:40px;height:40px;align-items:center;justify-content:center;border-radius:8px;background:var(--white);box-shadow:var(--shadow);color:var(--accent)}
+
+    /* scroll to top */
+    #scrollTop{position:fixed;right:18px;bottom:18px;width:48px;height:48px;border-radius:10px;display:none;align-items:center;justify-content:center;background:linear-gradient(180deg,var(--accent),#ff7a3a);color:#fff;border:0;cursor:pointer;box-shadow:var(--shadow);z-index:1400}
+
+    /* responsive */
+    @media (max-width:900px){
+      .contact-grid{grid-template-columns:1fr}
+      .modal-content{flex-direction:column}
+      .logo h1{display:none}
+    }
+    @media (max-width:768px){
+      .menu-toggle{display:block}
+      #navList{display:none;position:absolute;top:calc(var(--nav-h));left:0;right:0;background:linear-gradient(90deg,var(--accent),#ff7a3a);flex-direction:column;padding:10px;border-bottom-left-radius:12px;border-bottom-right-radius:12px}
+      #navList.show{display:flex}
+      #navList a{padding:12px}
+      .carousel-item{flex:0 0 46%}
+      #hero img{width:200px;height:200px}
+    }
+
+    .fade-in{opacity:0;transform:translateY(8px);transition:opacity .55s ease,transform .55s ease}
+    .fade-in.visible{opacity:1;transform:translateY(0)}
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">
+      <a href="#hero" style="display:flex;align-items:center;text-decoration:none;color:inherit">
+        <!-- Use your actual file name: logotrans.png -->
+        <img src="logotrans.png" alt="Logo" onerror="this.style.display='none'">
+        <h1>Paul Joshua Aranillo</h1>
+      </a>
+    </div>
+
+    <ul id="navList" role="menu" aria-label="Main navigation">
+      <li><a href="#about">About</a></li>
+      <li><a href="#products">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <!-- Download CV anchor (points to resume.pdf in same folder) -->
+      <li><a class="btn secondary" href="paulcv.pdf" id="downloadCv" download>Download CV</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <button class="btn" id="emailBtn" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">Contact</button>
+      <button class="menu-toggle" id="menuBtn" aria-controls="navList" aria-expanded="false">☰</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero" class="fade-in">
+    <h1>Welcome to My Portfolio</h1>
+
+    <div class="hero-row" aria-hidden="false">
+      <!-- Use your actual file name: 1x1.jpg -->
+      <img src="1x1.jpg" alt="Profile image" onerror="this.style.display='none'">
+      <div style="max-width:640px;text-align:left">
+        <p class="typing" aria-live="polite">
+          <span id="typedText" class="typing"></span><span class="cursor" aria-hidden="true"></span>
+        </p>
+        <p class="sub" style="margin-top:10px">
+          Hi, I'm Paul Joshua — an IT Professional passionate about building projects and leading with purpose. I design and build IoT systems, hardware prototypes, and web applications that solve real problems.
+        </p>
+
+        <div style="margin-top:14px;display:flex;gap:10px">
+          <a class="btn" href="#products">See my skills</a>
+          <a class="btn secondary" href="resume.pdf" download>Download CV</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="fade-in">
+    <h2>About Me</h2>
+    <p>I specialize in creating practical tech solutions—whether it’s IoT systems, hardware prototypes, or web applications. With a strong foundation in both hardware and software, I turn ideas into working products through innovation and hands-on engineering. Passionate about the IT world, I’m committed to developing technology that delivers real impact and long-term value.</p>
+
+    <div class="image-list" aria-hidden="false">
+      <div class="image-item">
+        <!-- hardware.jpg -->
+        <img src="hardware.jpg" alt="Hardware project" onerror="this.style.display='none'">
+        <p>Hardware projects</p>
+      </div>
+      <div class="image-item">
+        <!-- web.jpeg (you mentioned web.jpeg) -->
+        <img src="web.jpg" alt="Web project" onerror="this.style.display='none'">
+        <p>Web projects</p>
+      </div>
+      <div class="image-item">
+        <!-- schem.png -->
+        <img src="schem.jpg" alt="Schematic" onerror="this.style.display='none'">
+        <p>Schematics & diagrams</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS / SKILLS -->
+  <section id="products" class="fade-in">
+    <h2>Skills & Certifications</h2>
+    <p>These are the skills and things I can do, including my certifications.</p>
+
+    <div class="carousel" role="list" aria-label="Skills carousel">
+      <!-- skil11.png (you mentioned skil11.png) -->
+      <div class="carousel-item" data-index="0" role="listitem">
+        <img src="skil11.png" alt="JavaScript" onerror="this.style.display='none'">
+        <p>JavaScript</p>
+      </div>
+
+      <!-- skill22.png -->
+      <div class="carousel-item" data-index="1" role="listitem">
+        <img src="skill22.png" alt="HTML" onerror="this.style.display='none'">
+        <p>HTML</p>
+      </div>
+
+      <!-- skill33.jpg -->
+      <div class="carousel-item" data-index="2" role="listitem">
+        <img src="skill33.png" alt="CSS" onerror="this.style.display='none'">
+        <p>Cascading Style Sheet</p>
+      </div>
+
+      <!-- skill4.png -->
+      <div class="carousel-item" data-index="3" role="listitem">
+        <img src="skill4.png" alt="C++" onerror="this.style.display='none'">
+        <p>C++</p>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+      <button class="close" aria-label="Close">&times;</button>
+      <div class="modal-content" role="document">
+        <img id="modal-img" src="" alt="">
+        <div id="modal-description"></div>
+      </div>
+    </div>
+
+    <!-- Skill bars -->
+    <div class="skill-wrap" aria-hidden="false">
+      <div class="skill">
+        <div class="label"><span>JavaScript</span><span>85%</span></div>
+        <div class="bar"><span data-width="85%"></span></div>
+      </div>
+      <div class="skill">
+        <div class="label"><span>HTML & CSS</span><span>92%</span></div>
+        <div class="bar"><span data-width="92%"></span></div>
+      </div>
+      <div class="skill">
+        <div class="label"><span>IoT / Arduino</span><span>78%</span></div>
+        <div class="bar"><span data-width="78%"></span></div>
+      </div>
+      <div class="skill">
+        <div class="label"><span>Embedded C / C++</span><span>72%</span></div>
+        <div class="bar"><span data-width="72%"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="fade-in">
+    <h2>Contact</h2>
+    <p>Use the form below to send me a message.</p>
+
+    <div class="contact-grid">
+      <div class="contact-card">
+        <h3>Get in touch</h3>
+        <p class="small">Prefer email? Use the form. Or reach me via socials below.</p>
+
+        <form id="contactForm" class="small" onsubmit="sendEmail(event)">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" required placeholder="Your name">
+
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required placeholder="you@example.com">
+
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required placeholder="Tell me about your project..."></textarea>
+
+          <div style="display:flex;gap:8px;margin-top:12px">
+            <button type="submit" class="btn">Send message</button>
+            <button type="button" class="btn secondary" onclick="resetForm()">Reset</button>
+          </div>
+
+          <p id="formStatus" class="small" style="margin-top:10px;opacity:.95"></p>
+        </form>
+      </div>
+
+      <div class="contact-card">
+        <h3>Contact Info</h3>
+        <p class="small"><strong>Email:</strong> <a href="mailto:plaranillo@ccc.edu.ph">plaranillo@ccc.edu.ph</a></p>
+        <p class="small"><strong>Location:</strong> Calamba City, Laguna, Philippines</p>
+        <h4 style="margin-top:18px">Follow me on my social media platforms</h4>
+        <div class="socials">
+          <a class="icon-btn" href="https://github.com/plaranillo-design" title="GitHub"><img src="gith2.jpg" alt="GitHub" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></a>
+          <a class="icon-btn" href="https://www.linkedin.com/in/paul-joshua-aranillo-30bbaa36b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" title="LinkedIn"><img src="linkedin.png" alt="LinkedIn" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></a>
+          <a class="icon-btn" href="https://www.instagram.com/paullection/" title="Instagram"><img src="Insta.jpg" alt="Instagram" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>© <span id="year"></span> Paul Joshua Aranillo — Built with passion.</div>
+    <div class="socials" style="margin-top:8px">
+      <a class="icon-btn" href="https://github.com/plaranillo-design" title="GitHub"><img src="gith2.jpg" alt="GitHub" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></a>
+      <a class="icon-btn" href="https://www.linkedin.com/in/paul-joshua-aranillo-30bbaa36b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" title="LinkedIn"><img src="linkedin.png" alt="LinkedIn" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></a>
+      <a class="icon-btn" href="https://www.instagram.com/paullection/" title="Instagram"><img src="Insta.jpg" alt="Instagram" style="width:100%;height:100%;object-fit:cover;border-radius:8px;"></a>
+    </div>
+  </footer>
+
+  <!-- SCROLL TOP -->
+  <button id="scrollTop" aria-label="Scroll to top">↑</button>
+
+  <!-- EMAILJS SDK (must be loaded BEFORE the script that calls emailjs) -->
+  <script src="https://cdn.emailjs.com/sdk/3.2.0/email.min.js"></script>
+  <script>
+    // initialize EmailJS - replace with your public key (userID)
+    try {
+      emailjs.init('KVmFhprlHukN3X-jm');
+      console.log('EmailJS initialized');
+    } catch (err) {
+      console.error('EmailJS init failed:', err);
+    }
+  </script>
+
+  <!-- SCRIPTS -->
+  <script>
+    // DOM refs (safe guards)
+    const menuBtn = document.getElementById('menuBtn');
+    const navList = document.getElementById('navList');
+    const scrollTopBtn = document.getElementById('scrollTop');
+    const carouselItems = document.querySelectorAll('.carousel-item');
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modal-img');
+    const modalDesc = document.getElementById('modal-description');
+    const closeBtn = modal ? modal.querySelector('.close') : null;
+    const typedText = document.getElementById('typedText');
+    const year = document.getElementById('year');
+
+    // safe: set year
+    if (year) year.textContent = new Date().getFullYear();
+
+    // mobile nav toggle (guarded)
+    if (menuBtn && navList) {
+      menuBtn.addEventListener('click', () => {
+        const expanded = menuBtn.getAttribute('aria-expanded') === 'true';
+        menuBtn.setAttribute('aria-expanded', String(!expanded));
+        navList.classList.toggle('show');
+      });
+
+      // close nav on link click (mobile friendly)
+      document.querySelectorAll('#navList a').forEach(a => {
+        a.addEventListener('click', () => {
+          navList.classList.remove('show');
+          menuBtn.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+
+    // Typing animation (robust)
+    if (typedText) {
+      const phrases = [
+        "Hi, I'm Paul Joshua. I'm an IT Professional passionate about building projects.",
+        "IT Specialist • IoT Developer • Hardware Builder • Web Developer"
+      ];
+      let pIndex = 0, cIndex = 0, deleting = false;
+      function tick() {
+        const current = phrases[pIndex];
+        if (!deleting) {
+          cIndex++;
+          typedText.textContent = current.slice(0, cIndex);
+          if (cIndex >= current.length) {
+            deleting = true;
+            setTimeout(tick, 900);
+          } else setTimeout(tick, 45);
+        } else {
+          cIndex--;
+          typedText.textContent = current.slice(0, cIndex);
+          if (cIndex <= 0) {
+            deleting = false;
+            pIndex = (pIndex + 1) % phrases.length;
+            setTimeout(tick, 240);
+          } else setTimeout(tick, 28);
+        }
+      }
+      setTimeout(tick, 700);
+    }
+
+    // Carousel modal behavior (guarded)
+    if (carouselItems && modal && closeBtn) {
+      carouselItems.forEach(item => {
+        item.addEventListener('click', () => {
+          const img = item.querySelector('img');
+          if (img && img.src) {
+            modalImg.src = img.src;
+            modalImg.alt = img.alt || '';
+          } else {
+            modalImg.src = '';
+            modalImg.alt = '';
+          }
+          modalDesc.textContent = item.querySelector('p')?.textContent || '';
+          modal.classList.add('show');
+          modal.setAttribute('aria-hidden','false');
+          document.body.style.overflow = 'hidden';
+          closeBtn.focus();
+        });
+      });
+
+      function closeModal() {
+        modal.classList.remove('show');
+        modal.setAttribute('aria-hidden','true');
+        document.body.style.overflow = '';
+      }
+      closeBtn.addEventListener('click', closeModal);
+      window.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+      window.addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('show')) closeModal(); });
+    }
+
+    // Scroll reveal + nav hide/show + scrollTop
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+      const st = window.pageYOffset || document.documentElement.scrollTop;
+      const nav = document.querySelector('nav');
+      if (st > lastScroll && st > 100) nav.style.transform = 'translateY(-120%)';
+      else nav.style.transform = 'translateY(0)';
+      lastScroll = st <= 0 ? 0 : st;
+
+      if (st > 300) scrollTopBtn.style.display = 'flex';
+      else scrollTopBtn.style.display = 'none';
+
+      document.querySelectorAll('.fade-in').forEach(el => {
+        const r = el.getBoundingClientRect();
+        if (r.top < window.innerHeight - 80) el.classList.add('visible');
+      });
+    });
+    if (scrollTopBtn) scrollTopBtn.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+
+    // animate skill bars when in view
+    function animateSkills() {
+      document.querySelectorAll('.skill .bar span').forEach(s => {
+        const w = s.getAttribute('data-width') || '0%';
+        s.style.width = w;
+      });
+    }
+    function checkSkillInView() {
+      const el = document.querySelector('.skill-wrap');
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight - 120) animateSkills();
+    }
+    window.addEventListener('scroll', checkSkillInView);
+    setTimeout(checkSkillInView, 600);
+
+    // Contact form: EmailJS integration
+    function sendEmail(e) {
+      e.preventDefault();
+
+      const status = document.getElementById('formStatus');
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (!status) return;
+      status.textContent = "Sending...";
+
+      // Basic validation
+      if (!name || !email || !message) {
+        status.textContent = "Please fill all fields.";
+        return;
+      }
+
+      if (typeof emailjs === 'undefined') {
+        console.error('emailjs is not loaded');
+        status.textContent = "Email service not available. Check console.";
+        return;
+      }
+
+      // send via EmailJS - replace YOUR_SERVICE_ID and YOUR_TEMPLATE_ID
+      emailjs.send("service_mo1ejb9", "template_je2nb2n", {
+        from_name: name,
+        reply_to: email,
+        message: message
+      })
+      .then(function(response) {
+        console.log('SUCCESS!', response);
+        status.textContent = "Message sent — thank you!";
+        document.getElementById('contactForm')?.reset();
+      }, function(error) {
+        console.error('FAILED...', error);
+        // show specific error message if available
+        const msg = error && error.text ? error.text : 'Message not sent. Check console.';
+        status.textContent = "ERROR: " + msg;
+      }).catch(err => {
+        console.error('Unexpected error:', err);
+        status.textContent = "ERROR: Unexpected error. Check console.";
+      });
+    }
+
+    function resetForm(){ document.getElementById('contactForm')?.reset(); document.getElementById('formStatus').textContent=''; }
+
+    // accessibility focus outlines when keyboard used
+    function handleFirstTab(e){ if (e.key === 'Tab') document.documentElement.classList.add('user-is-tabbing'); window.removeEventListener('keydown', handleFirstTab); }
+    window.addEventListener('keydown', handleFirstTab);
+
+    // initial reveal
+    document.querySelectorAll('.fade-in').forEach((el, i)=> setTimeout(()=> el.classList.add('visible'), 140 * i));
+  </script>
+</body>
+</html>
