@@ -1,2 +1,1 @@
-- [x] Wrap the logotrans image and h1 text in anchor tag with href="#hero" in home.html
-- [x] Make nav bar fixed at top and hide/show on scroll with smooth animation
+
