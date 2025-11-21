@@ -83,6 +83,17 @@
     .skill .bar{background:rgba(0,0,0,0.06);height:12px;border-radius:999px;overflow:hidden}
     .skill .bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));border-radius:999px;transition:width 1.2s cubic-bezier(.2,.9,.2,1)}
 
+    /* Certifications */
+    #certifications{background:var(--muted);text-align:center;border-top:1px solid rgba(0,0,0,0.03)}
+    .certifications-list{max-width:1000px;margin:18px auto;padding:0 20px}
+    .cert-item{display:flex;gap:20px;align-items:center;margin-bottom:30px;padding:20px;background:var(--white);border-radius:12px;box-shadow:var(--shadow)}
+    .cert-item:nth-child(odd){flex-direction:row}
+    .cert-item:nth-child(even){flex-direction:row-reverse}
+    .cert-item img{flex:0 0 200px;width:200px;height:150px;object-fit:cover;border-radius:8px}
+    .cert-item .cert-text{flex:1;padding:0 10px}
+    .cert-item:nth-child(odd) .cert-text{text-align:left}
+    .cert-item:nth-child(even) .cert-text{text-align:right}
+
     /* CONTACT */
     #contact{background:var(--muted); text-align: center;}
     .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:1000px;margin:18px auto;align-items:start}
@@ -105,6 +116,8 @@
       .contact-grid{grid-template-columns:1fr}
       .modal-content{flex-direction:column}
       .logo h1{display:none}
+      .cert-item{flex-direction:column;text-align:center}
+      .cert-item .cert-text{text-align:center !important}
     }
     @media (max-width:768px){
       .menu-toggle{display:block}
@@ -134,6 +147,7 @@
     <ul id="navList" role="menu" aria-label="Main navigation">
       <li><a href="#about">About</a></li>
       <li><a href="#products">Skills</a></li>
+      <li><a href="#certifications">Certifications</a></li>
       <li><a href="#contact">Contact</a></li>
       <!-- Download CV anchor (points to resume.pdf in same folder) -->
       <li><a class="btn secondary" href="paulcv.pdf" id="downloadCv" download>Download CV</a></li>
@@ -249,6 +263,82 @@
       <div class="skill">
         <div class="label"><span>Embedded C / C++</span><span>72%</span></div>
         <div class="bar"><span data-width="72%"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications" class="fade-in">
+    <h2>Certifications</h2>
+    <p>Here are some of my certifications that showcase my expertise and commitment to professional development.</p>
+
+    <div class="certifications-list">
+      <div class="cert-item">
+        <img src="orange.jpg" alt="Certification 1" onerror="this.style.display='none'">
+        <div class="cert-text">
+          <h3>Sketch Activity</h3>
+          <p>In this activity, we used the basic elements of designing which are the shadows, point, contrast, and shades.</p>
+        </div>
+      </div>
+
+      <div class="cert-item">
+        <img src="lowfi.jpg" alt="Certification 2" onerror="this.style.display='none'">
+        <div class="cert-text">
+          <h3>Low-fidelity Sketch</h3>
+          <p>Low-fidelity sketch made by me in a blank paper</p>
+        </div>
+      </div>
+
+      <div class="cert-item">
+        <img src="poster.jpg" alt="Certification 3" onerror="this.style.display='none'">
+        <div class="cert-text">
+          <h3>Poster Making</h3>
+          <p>In this activity we are tasked to make an invitation poster and I used canva.</p>
+        </div>
+      </div>
+
+      <div class="cert-item">
+        <img src="web.jpg" alt="Certification 4" onerror="this.style.display='none'">
+        <div class="cert-text">
+          <h3>Software Engineering</h3>
+          <p>The output website of our Software Engineering subject, you can check it in <a href="aztechomes.online">aztechomes.online</a></p>
+        </div>
+      </div>
+
+      <div class="cert-item">
+        <img src="webdev.png" alt="Certification 5" onerror="this.style.display='none'">
+        <div class="cert-text">
+          <h3>Web Landing Page</h3>
+          <p>Web Landing page made using Canva.</p>
+        </div>
+      </div>
+
+      <div class="cert-item">
+        <img src="wadwhani.jpg" alt="Certification 6" onerror="this.style.display='none'">
+        <div class="cert-text">
+          <h3>Wadhwani Certification</h3>
+          <p>In this part, I show you my certification which I took when I was in first year.</p>
+        </div>
+      </div>
+
+      <div class="cert-item">
+        <img src="horizontallogo.png" alt="Certification 7" onerror="this.style.display='none'" style="width:100%; height:auto;">
+      </div>
+
+      <div class="cert-item">
+        <img src="highfid.jpg" alt="Certification 8" onerror="this.style.display='none'">
+        <div class="cert-text">
+          <h3>High-fidelity Sketch</h3>
+          <p>In this activity we used Figma to make our High-fidelity sketch with interactions.</p>
+        </div>
+      </div>
+
+      <div class="cert-item">
+        <img src="magazine.jpg" alt="Certification 9" onerror="this.style.display='none'">
+        <div class="cert-text">
+          <h3>Magazine</h3>
+          <p>In this activity we are tasked to make our own vogue poster with our own pictures.</p>
+        </div>
       </div>
     </div>
   </section>
